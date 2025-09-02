@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍅 番茄钟</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    #app {
+      min-height: 100vh;
+    }
+    /* 错误显示样式 */
+    .error-message {
+      padding: 20px;
+      text-align: center;
+      color: #e74c3c;
+      background: #fdf2f2;
+      border: 1px solid #e74c3c;
+      border-radius: 8px;
+      margin: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div style="text-align: center; padding: 50px;">
+      <h2>正在加载番茄钟...</h2>
+      <div style="margin-top: 20px;">如果长时间没有响应，请检查插件配置</div>
+    </div>
+  </div>
+  
+  <script type="module">
+    try {
+      console.log('开始加载应用...')
+      
+      // 检查基础环境
+      if (!window.Vue && !window.createApp) {
+        console.log('Vue环境检查中...')
+      }
+      
+      // 导入main.js
+      import('./src/main.js').then(() => {
+        console.log('应用加载成功')
+      }).catch(error => {
+        console.error('应用加载失败:', error)
+        document.getElementById('app').innerHTML = `
+          <div class="error-message">
+            <h3>应用加载失败</h3>
+            <p>错误信息: ${error.message}</p>
+            <p>请检查开发者控制台获取更多信息</p>
+          </div>
+        `
+      })
+    } catch (error) {
+      console.error('脚本执行错误:', error)
+      document.getElementById('app').innerHTML = `
+        <div class="error-message">
+          <h3>脚本执行错误</h3>
+          <p>错误信息: ${error.message}</p>
+        </div>
+      `
+    }
+  </script>
+</body>
+</html>

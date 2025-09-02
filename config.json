@@ -1,0 +1,50 @@
+{
+  "quick_marks": [
+    {
+      "key": "f1",
+      "label": "Boss",
+      "content": "Boss"
+    },
+    {
+      "key": "f2",
+      "label": "惊喜点",
+      "content": "惊喜点"
+    },
+    {
+      "key": "f3",
+      "label": "工作",
+      "content": "工作"
+    },
+    {
+      "key": "f4",
+      "label": "会议",
+      "content": "会议"
+    },
+    {
+      "key": "f5",
+      "label": "思考",
+      "content": "思考"
+    },
+    {
+      "key": "f6",
+      "label": "完成任务",
+      "content": "完成任务"
+    },
+    {
+      "key": "f7",
+      "label": "遇到问题",
+      "content": "遇到问题"
+    },
+    {
+      "key": "f8",
+      "label": "重要节点",
+      "content": "重要节点"
+    }
+  ],
+  "custom_hotkeys": {
+    "add_custom_mark": "ctrl+m",
+    "stop_timeline": "ctrl+q"
+  },
+  "data_directory": "timeline_records",
+  "max_quick_marks": 12
+}

@@ -1,0 +1,109 @@
+{
+  "categories": {
+    "工作": {
+      "color": "#FF6B6B",
+      "icon": "💼",
+      "description": "工作相关任务"
+    },
+    "学习": {
+      "color": "#89B4FA",
+      "icon": "📚",
+      "description": "学习和教育"
+    },
+    "创作": {
+      "color": "#F5C2E7",
+      "icon": "🎨",
+      "description": "创意和写作"
+    },
+    "运动": {
+      "color": "#A6E3A1",
+      "icon": "🏃",
+      "description": "健身和运动"
+    },
+    "生活": {
+      "color": "#F9E2AF",
+      "icon": "🏠",
+      "description": "日常生活事务"
+    },
+    "娱乐": {
+      "color": "#FAB387",
+      "icon": "🎮",
+      "description": "休闲娱乐"
+    },
+    "其他": {
+      "color": "#A6ADC8",
+      "icon": "📝",
+      "description": "其他任务"
+    }
+  },
+  "custom_tags": [
+    "复杂",
+    "整理"
+  ],
+  "sessions": [
+    {
+      "category": "学习",
+      "description": "Test",
+      "tags": [
+        "复杂",
+        "整理"
+      ],
+      "start_time": "2025-07-16T16:04:24.575871",
+      "work_periods": [
+        {
+          "work_time": 60,
+          "summary_time": 0,
+          "break_time": 60,
+          "timestamp": "2025-07-16T16:04:28.593448"
+        }
+      ],
+      "total_work_time": 60,
+      "total_summary_time": 0,
+      "total_break_time": 60,
+      "end_time": "2025-07-16T16:05:03.482246",
+      "session_name": "Test - 会话 #1",
+      "total_periods": 1
+    },
+    {
+      "category": "工作",
+      "description": "专注工作",
+      "tags": [],
+      "start_time": "2025-07-16T16:05:32.753044",
+      "work_periods": [
+        {
+          "work_time": 60,
+          "summary_time": 0,
+          "break_time": 0,
+          "timestamp": "2025-07-16T16:05:36.761386"
+        }
+      ],
+      "total_work_time": 60,
+      "total_summary_time": 0,
+      "total_break_time": 0,
+      "end_time": "2025-07-16T16:05:52.457326",
+      "session_name": "专注工作 - 会话 #2",
+      "total_periods": 1
+    }
+  ],
+  "statistics": {
+    "total_sessions": 2,
+    "category_time": {
+      "学习": {
+        "work_time": 60,
+        "summary_time": 0,
+        "break_time": 60,
+        "sessions": 1
+      },
+      "工作": {
+        "work_time": 60,
+        "summary_time": 0,
+        "break_time": 0,
+        "sessions": 1
+      }
+    },
+    "tag_usage": {
+      "复杂": 1,
+      "整理": 1
+    }
+  }
+}

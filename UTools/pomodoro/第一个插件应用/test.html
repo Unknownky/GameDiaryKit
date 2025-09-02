@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍅 番茄钟 - 测试环境</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+        }
+        #app {
+            width: 100%;
+            min-height: 100vh;
+        }
+        .dev-header {
+            background: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 50vh;
+            color: #666;
+            font-size: 18px;
+        }
+        .loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid #667eea;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="dev-header">
+        🚀 开发测试环境 - 模拟 uTools API
+    </div>
+    
+    <div id="app">
+        <div class="loading">正在加载番茄钟</div>
+    </div>
+    
+    <!-- 模拟uTools环境 -->
+    <script>
+        // 为测试环境模拟uTools API
+        if (!window.utools) {
+            console.log('🔧 初始化模拟 uTools API...');
+            
+            window.utools = {
+                onPluginEnter: function(callback) {
+                    console.log('📱 模拟 uTools onPluginEnter');
+                    // 模拟插件进入
+                    setTimeout(() => {
+                        callback({
+                            code: 'pomodoro',
+                            type: 'feature',
+                            payload: null,
+                            option: {},
+                            from: 'keyword'
+                        });
+                    }, 500);
+                },
+                
+                onPluginOut: function(callback) {
+                    console.log('📱 模拟 uTools onPluginOut');
+                    window._utoolsOnPluginOut = callback;
+                },
+                
+                showNotification: function(message, clickFeatureCode) {
+                    console.log('🔔 通知:', message);
+                    
+                    // 在开发环境显示浏览器通知
+                    if ('Notification' in window) {
+                        if (Notification.permission === 'granted') {
+                            new Notification('🍅 番茄钟', { 
+                                body: message,
+                                icon: '/logo.png'
+                            });
+                        } else if (Notification.permission !== 'denied') {
+                            Notification.requestPermission().then(permission => {
+                                if (permission === 'granted') {
+                                    new Notification('🍅 番茄钟', { 
+                                        body: message,
+                                        icon: '/logo.png'
+                                    });
+                                }
+                            });
+                        }
+                    }
+                    
+                    // 同时在页面显示通知
+                    const notification = document.createElement('div');
+                    notification.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: #4CAF50;
+                        color: white;
+                        padding: 15px 20px;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                        z-index: 10000;
+                        max-width: 300px;
+                        font-size: 14px;
+                        animation: slideIn 0.3s ease-out;
+                    `;
+                    notification.textContent = message;
+                    document.body.appendChild(notification);
+                    
+                    setTimeout(() => {
+                        notification.style.animation = 'slideOut 0.3s ease-in';
+                        setTimeout(() => {
+                            document.body.removeChild(notification);
+                        }, 300);
+                    }, 3000);
+                },
+                
+                setExpendHeight: function(height) {
+                    console.log('📏 设置窗口高度:', height);
+                    // 在测试环境中调整页面高度
+                    document.getElementById('app').style.minHeight = height + 'px';
+                },
+                
+                shellBeep: function() {
+                    console.log('🔊 播放系统提示音');
+                    // 在测试环境中播放简单音效
+                    try {
+                        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                        const oscillator = audioContext.createOscillator();
+                        const gainNode = audioContext.createGain();
+                        
+                        oscillator.connect(gainNode);
+                        gainNode.connect(audioContext.destination);
+                        
+                        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                        
+                        oscillator.start(audioContext.currentTime);
+                        oscillator.stop(audioContext.currentTime + 0.1);
+                    } catch (e) {
+                        console.log('音效播放失败:', e);
+                    }
+                },
+                
+                dbStorage: {
+                    setItem: function(key, value) {
+                        console.log('💾 存储数据:', key);
+                        localStorage.setItem('utools_' + key, value);
+                    },
+                    getItem: function(key) {
+                        console.log('📖 读取数据:', key);
+                        return localStorage.getItem('utools_' + key);
+                    },
+                    removeItem: function(key) {
+                        console.log('🗑️ 删除数据:', key);
+                        localStorage.removeItem('utools_' + key);
+                    }
+                },
+                
+                isDev: function() {
+                    return true;
+                },
+                
+                hideMainWindow: function() {
+                    console.log('🙈 隐藏主窗口');
+                },
+                
+                showMainWindow: function() {
+                    console.log('👁️ 显示主窗口');
+                }
+            };
+            
+            // 添加动画样式
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            console.log('✅ uTools API 模拟完成');
+        }
+        
+        // 添加开发环境提示
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                console.log('🍅 番茄钟测试环境已就绪');
+                console.log('💡 提示: 打开浏览器开发者工具查看日志');
+            }, 1000);
+        });
+    </script>
+    
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>

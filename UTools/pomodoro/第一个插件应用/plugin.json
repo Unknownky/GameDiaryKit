@@ -1,0 +1,23 @@
+{
+  "logo": "logo.png",
+  "main": "index.html",
+  "pluginSetting": {
+    "single": true,
+    "height": 700
+  },
+  "features": [
+    {
+      "code": "pomodoro",
+      "explain": "番茄钟专注计时器 - 提高工作效率的时间管理工具",
+      "icon": "logo.png",
+      "cmds": [
+        "番茄钟",
+        "pomodoro",
+        "计时器",
+        "专注时间",
+        "时间管理",
+        "工作计时"
+      ]
+    }
+  ]
+}
